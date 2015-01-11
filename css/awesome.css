@@ -1,0 +1,21 @@
+#awesome-slider {
+    display:inline-block;
+}
+#awesome-slider .opac7 {
+    opacity: .7;
+}
+#awesome-slider .awesome-slide:hover {
+    opacity: 1;
+}
+#awesome-slider .awesome-slide {
+    float:left;
+    margin: 5px;
+}
+
+/* 4.4 - Mobile Portrait */
+@media only screen and (max-width: 509px){
+    #people-slider .people-slide {
+        font-size: .8em;
+        margin: 5px 0;
+    }
+}
