@@ -1,22 +1,35 @@
 <?php
+// Satellite gives us all the tools and config settings of the parent plugin
 $Satellite = new Satellite();
+
+// Set a variable to hold all your unique plugin settings
 $awesome = $this->get_option('Awesome');
 
 $styling = ($w = $awesome['width']) ? 'width:'.$w.'px;' : null;
+
+// Utilize the configuration saved for Images from the Satellite parent
 $images = $this->get_option('Images');
+
+// Use log_me to view arrays, objects or strings in the PHP error_log for local development.
 $Satellite->log_me($images);
 
-// How should the image be opened?
-$imagesbox = $images['imagesbox'];
-if ($imagesbox == "T") {
-    $class="thickbox";
-    $rel = null;
-} elseif ($imagesbox == "L") {
-    $class = "lightbox";
-    $rel = "lightbox[".$slide->section."]";
-}
+if (!empty($slides)) : 
+  $Satellite->Gallery->loadData($slides[0]->section);
+  /** Font Size is set on the Gallery **/
+  $fontSize = $Satellite->Gallery->data->font;
 
-if (!empty($slides)) : ?>
+  // How should the image be opened?
+  $imagesbox = $images['imagesbox'];
+
+  if ($imagesbox == "T") {
+      $class="thickbox";
+      $rel = null;
+  } elseif ($imagesbox == "L") {
+      $class = "lightbox";
+      $rel = "lightbox[".$slides[0]->section."]";
+  }
+
+?>
 <div id="awesome-slider">
     <?php foreach($slides as $slide):
         $image_src = $Satellite->Html->image_url($slide->image); ?>

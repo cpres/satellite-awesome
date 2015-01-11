@@ -43,15 +43,20 @@ class SatelliteAwesomePlugin
 
     public static function addViews($themes)
     {
+        // The title is displayed in the Themes dropdown on the Satellite Gallery page
         $themes[] = array("id" => "awesomeness", "title" => "Awesomeness");
         return $themes;
     }
 
     public static function addRender($params)
     {
-        list($view, $slides) = $params;
-        $plugin = new SatelliteAwesomePlugin();
-        return $plugin->render($view, array('slides' => $slides, 'frompost' => 'false'), false);
+        if (is_array($params)) {
+            list($view, $slides) = $params;
+            $plugin = new SatelliteAwesomePlugin();
+            return $plugin->render($view, array('slides' => $slides, 'frompost' => 'false'), false);
+        } else {
+            return $params;
+        }
     }
 
     public static function add_menu($menus)
@@ -103,6 +108,9 @@ class SatelliteAwesomePlugin
 
     }
 
+    /**
+     * Each option used and set from the settings file should be declared here.
+     */
     public function initialize_options()
     {
         $settings = array(
@@ -132,7 +140,13 @@ class SatelliteAwesomePlugin
         }
         return false;
     }
-
+    /**
+     * Creates a custom get_option for options unique to plugin, or else use general
+     * 
+     * @param string $name
+     * @param bool $stripslashes
+     * @return type 
+     */
     function get_option($name = '', $stripslashes = true)
     {
         if ($option = get_option($this->basename . $this->pre . $name)) {
@@ -154,7 +168,6 @@ class SatelliteAwesomePlugin
         }
         return false;
     }
-
 
 }
 
